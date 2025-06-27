@@ -1,6 +1,9 @@
 {
 	"name": "jripa/payment-prepayment",
 	"type": "silverstripe-vendormodule",
+	"version": "dev-master",
+	"minimum-stability": "dev",
+	"prefer-stable": true,
 	"description": "Payment module for the SilverCart ecommerce module for SilverStripe",
 	"homepage": "http://www.silvercart.org",
 	"license": "LGPL-3.0",
