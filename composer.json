@@ -21,6 +21,6 @@
 	"require": {
 		"php": ">=8.1.0",
 		"composer/installers": "*",
-		"jripa/silvercart": "^5.3"
+		"jripa/silvercart": "dev-master"
 	}
 }
