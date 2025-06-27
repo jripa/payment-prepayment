@@ -1,5 +1,5 @@
 {
-	"name": "silvercart/payment-prepayment",
+	"name": "jripa/payment-prepayment",
 	"type": "silverstripe-vendormodule",
 	"description": "Payment module for the SilverCart ecommerce module for SilverStripe",
 	"homepage": "http://www.silvercart.org",
@@ -16,8 +16,8 @@
 		}
 	],
 	"require": {
-		"php": ">=5.6.0",
+		"php": ">=8.1.0",
 		"composer/installers": "*",
-		"silvercart/silvercart": "~4.0"
+		"silvercart/silvercart": "~5.3"
 	}
 }
