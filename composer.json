@@ -18,9 +18,15 @@
 			"homepage": "http://www.pixeltricks.de"
 		}
 	],
+	"repositories": [
+	        {
+	          "type": "vcs",
+	          "url": "https://github.com/jripa/silvercart"
+	        }
+    	], 
 	"require": {
 		"php": ">=8.1.0",
 		"composer/installers": "*",
-		"jripa/silvercart": "dev-master"
+		"silvercart/silvercart": "dev-master"
 	}
 }
