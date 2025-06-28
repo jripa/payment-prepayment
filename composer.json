@@ -1,5 +1,5 @@
 {
-	"name": "jripa/payment-prepayment",
+	"name": "silvercart/payment-prepayment",
 	"type": "silverstripe-vendormodule",
 	"version": "dev-master",
 	"minimum-stability": "dev",
