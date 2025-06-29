@@ -265,34 +265,30 @@ class Prepayment extends PaymentMethod
      * 
      * @return ArrayList
      */
-    public function getBankAccounts() : ArrayList
-    {
+    public function getBankAccounts(): ArrayList {
         if ($this->PaymentChannel != 'prepayment') {
             return ArrayList::create();
         }
-        $bankAccounts    = ArrayList::create();
-        $bankAccountData = unserialize($this->BankAccountData);
+        $bankAccounts = ArrayList::create();
+        $bankAccountData = is_string($this->BankAccountData) ? unserialize($this->BankAccountData) : null;
         if (is_array($bankAccountData)) {
             foreach ($bankAccountData as $ID => $data) {
-                if (empty($data['Owner'])
-                 && empty($data['Name'])
-                 && empty($data['IBAN'])
-                 && empty($data['BIC'])
+                if (empty($data['Owner']) && empty($data['Name']) && empty($data['IBAN']) && empty($data['BIC'])
                 ) {
                     continue;
                 }
                 $bankAccounts->add(ArrayData::create([
-                    'ID'    => $ID,
-                    'Owner' => $data['Owner'],
-                    'Name'  => $data['Name'],
-                    'IBAN'  => $data['IBAN'],
-                    'BIC'   => $data['BIC'],
+                            'ID' => $ID,
+                            'Owner' => $data['Owner'],
+                            'Name' => $data['Name'],
+                            'IBAN' => $data['IBAN'],
+                            'BIC' => $data['BIC'],
                 ]));
             }
         }
         return $bankAccounts;
     }
-    
+
     /**
      * Adds the bank account related CMS fields.
      * 
