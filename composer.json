@@ -1,7 +1,6 @@
 {
 	"name": "silvercart/payment-prepayment",
 	"type": "silverstripe-vendormodule",
-	"version": "dev-master",
 	"minimum-stability": "dev",
 	"prefer-stable": true,
 	"description": "Payment module for the SilverCart ecommerce module for SilverStripe",
@@ -21,12 +20,17 @@
 	"repositories": [
 	        {
 	          "type": "vcs",
-	          "url": "https://github.com/jripa/silvercart"
+	          "url": "git@github.com:jripa/silvercart"
 	        }
     	], 
 	"require": {
 		"php": ">=8.1.0",
 		"composer/installers": "*",
-		"silvercart/silvercart": "dev-master"
+		"silvercart/silvercart": "6.x-dev"
+	},
+	"extra": {
+          "branch-alias": {
+            "dev-6": "6.x-dev"
+	  }
 	}
 }
