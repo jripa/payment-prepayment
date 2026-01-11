@@ -16,12 +16,12 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\ReadonlyField;
 use SilverStripe\Forms\Tab;
 use SilverStripe\Forms\GridField\GridField;
-use SilverStripe\ORM\ArrayList;
+use SilverStripe\Model\List\ArrayList;
 use SilverStripe\ORM\Filters\ExactMatchFilter;
 use SilverStripe\ORM\Filters\GreaterThanFilter;
 use SilverStripe\ORM\Filters\LessThanFilter;
 use SilverStripe\ORM\Filters\PartialMatchFilter;
-use SilverStripe\View\ArrayData;
+use SilverStripe\Model\ArrayData;
 use SilverStripe\View\SSViewer_FromString;
 
 /**
@@ -220,7 +220,7 @@ class Prepayment extends PaymentMethod
      */
     public function onBeforeWrite() : void
     {
-        parent::onBeforeWrite();
+        parent::onBeforeWrite();    
         $this->writeBankAccounts();
     }
 
