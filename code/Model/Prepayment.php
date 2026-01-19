@@ -22,7 +22,8 @@ use SilverStripe\ORM\Filters\GreaterThanFilter;
 use SilverStripe\ORM\Filters\LessThanFilter;
 use SilverStripe\ORM\Filters\PartialMatchFilter;
 use SilverStripe\Model\ArrayData;
-use SilverStripe\View\SSViewer_FromString;
+use SilverStripe\View\ViewLayerData;
+use SilverStripe\TemplateEngine\SSTemplateEngine;
 
 /**
  * prepayment module
@@ -329,7 +330,8 @@ class Prepayment extends PaymentMethod
      * 
      * @return void
      *
-     * @author Sebastian Diel <sdiel@pixeltricks.de>
+     * @author   Jiri Ripa <jripa@pixeltricks.de>,
+     *           Sebastian Diel <sdiel@pixeltricks.de>
      * @since 18.04.2018
      */
     protected function writeBankAccounts() : void
@@ -337,8 +339,12 @@ class Prepayment extends PaymentMethod
         if ($this->PaymentChannel != 'prepayment') {
             return;
         }
-        $requests        = Controller::curr()->getRequest();
-        $bankAccounts    = $requests->postVar('BankAccounts');
+
+        $request = Controller::curr()?->getRequest();
+        if (!$request) {
+            return; // CLI / dev/build
+        }
+        $bankAccounts    = $request->postVar('BankAccounts');
         $bankAccountData = [];
         if (is_array($bankAccounts)) {
             foreach ($bankAccounts as $ID => $data) {
@@ -454,25 +460,29 @@ class Prepayment extends PaymentMethod
      * 
      * @return string
      *
-     * @author Sebastian Diel <sdiel@pixeltricks.de>
-     * @since 13.04.2018
+     * @author Sebastian Diel <sdiel@pixeltricks.de>, Jiri Ripa <jripa@pixeltricks.de>
+     * @since 15.01.2026
      */
-    public function processConfirmationText(Order $order, array $checkoutData) : string
+    public function processConfirmationText(Order $order, array $checkoutData): string
     {
         $text         = '';
         $textTemplate = null;
         switch ($this->PaymentChannel) {
             case 'invoice':
-                $textTemplate = SSViewer_FromString::create($this->InvoiceInfo);
+                if (!empty($this->InvoiceInfo)) {
+                    $textTemplate = SSTemplateEngine::create($this->InvoiceInfo);
+                }
                 break;
             case 'prepayment':
-                $textTemplate = SSViewer_FromString::create($this->TextBankAccountInfo);
+                if (!empty($this->TextBankAccountInfo)) {
+                    $textTemplate = SSTemplateEngine::create($this->TextBankAccountInfo);
+                }
                 break;
             default:
                 break;
         }
         if (!is_null($textTemplate)) {
-            $text = HTTP::absoluteURLs($textTemplate->process(ArrayData::create(['Order' => $order])));
+            $text = HTTP::absoluteURLs($textTemplate->render(ViewLayerData::create(['Order' => $order])));
         }
         return (string) $text;
     }
